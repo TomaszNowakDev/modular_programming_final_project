@@ -74,6 +74,7 @@ def main():
         while True:
             runner_name, runner_id = reading_runners()
             races = reading_races()
+
             if choice_main == 1:
                 print("(1) Show the results for a race \n===============================")
                 display(races)
@@ -98,10 +99,21 @@ def main():
                         time_from_race = int(input(f"What time {runner_id[i]} got? ==>"))
                         if time_from_race > 0:
                             print(f"{runner_id[i]},{time_from_race}", file=file_race)
+
             elif choice_main == 3:
                 print("(3) Show all competitors by county \n===============================")
+                print("Cork Runners \n---------------------")
+                for i in range(len(runner_id)):
+                    if runner_id[i].startswith("CK"):
+                        print(f"\t{runner_name[i]:15}{runner_id[i]}")
+                print("Kerry Runners \n---------------------")
+                for i in range(len(runner_id)):
+                    if runner_id[i].startswith("KY"):
+                        print(f"\t{runner_name[i]:15}{runner_id[i]}")
+
             elif choice_main == 4:
                 print("(4) Show the winner of each race \n===============================")
+
             elif choice_main == 5:
                 print("(5) Show all the race times for one competitor \n===============================")
             elif choice_main == 6:
