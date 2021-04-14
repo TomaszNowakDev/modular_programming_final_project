@@ -46,7 +46,20 @@ def race_details(race_name):
             time_race.append(time)
         return ids_race, time_race
 
-8
+
+def validation_for_choice1(rac, prompt):
+    while True:
+        try:
+            cho = int(input(prompt))
+            if 0 <= cho <= len(rac):
+                break
+            else:
+                print("Choose one of the options please.")
+        except ValueError:
+            print("Numbers only please!")
+    return cho
+
+
 def main():
     print(MAIN_MENU)
     try:
@@ -56,6 +69,8 @@ def main():
             races = reading_races()
             if choice_main == 1:
                 print("(1) Show the results for a race \n===============================")
+                display(races)
+                choice1 = validation_for_choice1(races, "Choice ==> ")
             elif choice_main == 2:
                 print("(2) Add results for a race \n===============================")
             elif choice_main == 3:
