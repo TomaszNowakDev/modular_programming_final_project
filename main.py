@@ -113,6 +113,13 @@ def main():
 
             elif choice_main == 4:
                 print("(4) Show the winner of each race \n===============================")
+                print(f"{'Venue':16}{'Winner'}\n======================")
+                for i in range(len(races)):
+                    c, t = race_details(races[i])
+                    fastest = min(t)
+                    for index in range(len(t)):
+                        if t[index] == fastest:
+                            print(f"{races[i]:15} {c[index]}")
 
             elif choice_main == 5:
                 print("(5) Show all the race times for one competitor \n===============================")
