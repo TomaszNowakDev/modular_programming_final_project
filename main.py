@@ -33,6 +33,20 @@ def reading_races():
         return [race.strip() for race in lines]
 
 
+def race_details(race_name):
+    with open(f"{race_name}.txt") as file_races:
+        lines_race_details = file_races.readlines()
+        ids_race = []
+        time_race = []
+        for lin in lines_race_details:
+            split_line_race = lin.split(",")
+            code = split_line_race[0]
+            time = int(split_line_race[1])
+            ids_race.append(code)
+            time_race.append(time)
+        return ids_race, time_race
+
+8
 def main():
     print(MAIN_MENU)
     try:
