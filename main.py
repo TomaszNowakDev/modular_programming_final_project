@@ -8,6 +8,11 @@ MAIN_MENU = "Running Contest \n=========================== \n1. Show the results
             + "\n7. Quit"
 
 
+def display(items):
+    for item in range(len(items)):
+        print(f"{item+1}. {items[item]}")
+
+
 def reading_runners():
     with open("Runners.txt") as file_runners:
         lines_runners = file_runners.readlines()
@@ -20,11 +25,6 @@ def reading_runners():
             ids.append(id_runner)
             runners.append(name)
         return runners, ids
-
-
-def display(items):
-    for item in range(len(items)):
-        print(f"{item+1}. {items[item]}")
 
 
 def reading_races():
@@ -60,6 +60,13 @@ def validation_for_choice1(rac, prompt):
     return cho
 
 
+def display_option1(codes, time1):
+    for item in range(len(codes)):
+        minutes = time1[item] // 60
+        seconds = time1[item] % 60
+        print(f"{item + 1}. {codes[item]}{minutes:>5} min {seconds:>2} sec")
+
+
 def main():
     print(MAIN_MENU)
     try:
@@ -71,6 +78,15 @@ def main():
                 print("(1) Show the results for a race \n===============================")
                 display(races)
                 choice1 = validation_for_choice1(races, "Choice ==> ")
+                c, t = race_details(races[choice1 - 1])
+                print(f"Results for {races[choice1 - 1]}\n=======================")
+                display_option1(c, t)
+                print()
+                fastest = min(t)
+                for index in range(len(t)):
+                    if t[index] == fastest:
+                        print(f"{c[index]} won the race.")
+
             elif choice_main == 2:
                 print("(2) Add results for a race \n===============================")
             elif choice_main == 3:
