@@ -8,11 +8,31 @@ MAIN_MENU = "Running Contest \n=========================== \n1. Show the results
             + "\n7. Quit"
 
 
+def reading_runners():
+    with open("Runners.txt") as file_runners:
+        lines_runners = file_runners.readlines()
+        runners = []
+        ids = []
+        for line in lines_runners:
+            split_line_runners = line.split(",")
+            name = split_line_runners[0]
+            id_runner = split_line_runners[1].strip()
+            ids.append(id_runner)
+            runners.append(name)
+        return runners, ids
+
+
+def display(items):
+    for item in range(len(items)):
+        print(f"{item+1}. {items[item]}")
+
+
 def main():
     print(MAIN_MENU)
     try:
         choice_main = int(input("==>"))
         while True:
+            runner_name, runner_id = reading_runners()
             if choice_main == 1:
                 print("(1) Show the results for a race \n===============================")
             elif choice_main == 2:
