@@ -47,7 +47,8 @@ def race_details(race_name):
         return ids_race, time_race
 
 
-def validation_for_choice1(rac, prompt):
+def validation_for_choice(rac, prompt):
+    display(rac)
     while True:
         try:
             cho = int(input(prompt))
@@ -62,9 +63,15 @@ def validation_for_choice1(rac, prompt):
 
 def display_option1(codes, time1):
     for item in range(len(codes)):
-        minutes = time1[item] // 60
-        seconds = time1[item] % 60
-        print(f"{item + 1}. {codes[item]}{minutes:>5} min {seconds:>2} sec")
+        t = time_formatted(time1[item])
+        print(f"{item + 1}. {codes[item]}{t}")
+
+
+def time_formatted(t):
+    minutes = t // 60
+    seconds = t % 60
+    tf = f"{minutes:>5} min {seconds:>2} sec"
+    return tf
 
 
 def main():
@@ -77,8 +84,7 @@ def main():
 
             if choice_main == 1:
                 print("(1) Show the results for a race \n===============================")
-                display(races)
-                choice1 = validation_for_choice1(races, "Choice ==> ")
+                choice1 = validation_for_choice(races, "Choice ==> ")
                 c, t = race_details(races[choice1 - 1])
                 print(f"Results for {races[choice1 - 1]}\n=======================")
                 display_option1(c, t)
@@ -102,11 +108,11 @@ def main():
 
             elif choice_main == 3:
                 print("(3) Show all competitors by county \n===============================")
-                print("Cork Runners \n---------------------")
+                print("Cork runners \n---------------------")
                 for i in range(len(runner_id)):
                     if runner_id[i].startswith("CK"):
                         print(f"\t{runner_name[i]:15}{runner_id[i]}")
-                print("Kerry Runners \n---------------------")
+                print("Kerry runners \n---------------------")
                 for i in range(len(runner_id)):
                     if runner_id[i].startswith("KY"):
                         print(f"\t{runner_name[i]:15}{runner_id[i]}")
@@ -123,6 +129,19 @@ def main():
 
             elif choice_main == 5:
                 print("(5) Show all the race times for one competitor \n===============================")
+                which_runner = validation_for_choice(runner_name, "Which runner ==> ")
+                runner_to_display = runner_id[which_runner - 1]
+                print(f"{runner_name[which_runner - 1]:11}({runner_id[which_runner - 1]})")
+                print("------------------------------")
+                for i in range(len(races)):
+                    code, time_in = race_details(races[i])
+                    if runner_to_display in code:
+                        y = code.index(runner_to_display)
+                        copied_times = time_in.copy()
+                        copied_times.sort()
+                        place = copied_times.index(time_in[y])
+                        print(f"{races[i]:12}{time_formatted(time_in[y])} ({place +1} of {len(code)})")
+
             elif choice_main == 6:
                 print("(6) Show all competitors who have won a race \n===============================")
             elif choice_main == 7:
