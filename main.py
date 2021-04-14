@@ -27,12 +27,19 @@ def display(items):
         print(f"{item+1}. {items[item]}")
 
 
+def reading_races():
+    with open("Races.txt") as file:
+        lines = file.readlines()
+        return [race.strip() for race in lines]
+
+
 def main():
     print(MAIN_MENU)
     try:
         choice_main = int(input("==>"))
         while True:
             runner_name, runner_id = reading_runners()
+            races = reading_races()
             if choice_main == 1:
                 print("(1) Show the results for a race \n===============================")
             elif choice_main == 2:
