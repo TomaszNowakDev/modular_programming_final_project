@@ -141,9 +141,20 @@ def main():
                         copied_times.sort()
                         place = copied_times.index(time_in[y])
                         print(f"{races[i]:12}{time_formatted(time_in[y])} ({place +1} of {len(code)})")
-
             elif choice_main == 6:
                 print("(6) Show all competitors who have won a race \n===============================")
+                print("The following runners have all won at least one race:")
+                print('-----------------------------------------------------')
+                winners_list = []
+                for i in range(len(races)):
+                    c, t = race_details(races[i])
+                    fastest = min(t)
+                    for index in range(len(t)):
+                        if t[index] == fastest and c[index not in winners_list]:
+                            winners_index = runner_id.index(c[index])
+                            print(f"\t{runner_name[winners_index]} ({c[index]})")
+                            winners_list.append(f"{c[index]}")
+
             elif choice_main == 7:
                 print("Thank you, Goodbye.")
                 break
