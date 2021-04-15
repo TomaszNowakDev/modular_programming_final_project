@@ -96,15 +96,21 @@ def main():
 
             elif choice_main == 2:
                 print("(2) Add results for a race \n===============================")
-                with open("Races.txt", "a") as file_option2:
-                    new_race = input("Name of new race location ==> ")
-                    print(new_race, file=file_option2)
-                    file_option2.close()
-                with open(new_race + ".txt", "w") as file_race:
-                    for i in range(len(runner_id)):
-                        time_from_race = int(input(f"What time {runner_id[i]} got? ==>"))
-                        if time_from_race > 0:
-                            print(f"{runner_id[i]},{time_from_race}", file=file_race)
+                new_race = input("Name of new race location ==> ").capitalize()
+                while True:
+                    if new_race not in races:
+                        with open("Races.txt", "a") as file_option2:
+                            print(new_race, file=file_option2)
+                            file_option2.close()
+                        with open(new_race.lower() + ".txt", "w") as file_race:
+                            for i in range(len(runner_id)):
+                                time_from_race = int(input(f"What time {runner_id[i]} got? ==>"))
+                                if time_from_race > 0:
+                                    print(f"{runner_id[i]},{time_from_race}", file=file_race)
+                            break
+                    else:
+                        print(f"data for {new_race} already exists, please enter a different name.")
+                        new_race = input("Name of new race location ==> ").capitalize()
 
             elif choice_main == 3:
                 print("(3) Show all competitors by county \n===============================")
