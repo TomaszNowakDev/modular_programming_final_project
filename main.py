@@ -5,7 +5,7 @@
 MAIN_MENU = "Running Contest \n=========================== \n1. Show the results for a race" \
             + "\n2. Add results for a race \n3. Show all competitors by county \n4. Show the winner of each race" \
             + "\n5. Show all the race times for one competitor \n6. Show all competitors who have won a race" \
-            + "\n7. Quit\n==>"
+            + "\n7. Quit"
 
 
 def display(items):
@@ -47,28 +47,14 @@ def race_details(race_name):
         return ids_race, time_race
 
 
-def validation_for_choice(rac, prompt):
-    display(rac)
+def validation_for_choice(minimum, maximum, prompt):
     while True:
         try:
             cho = int(input(prompt))
-            if 0 < cho <= len(rac):
+            if minimum < cho <= maximum:
                 break
             else:
-                print("Choose one of the options please.")
-        except ValueError:
-            print("Numbers only please!")
-    return cho
-
-
-def validation_for_menu(prompt):
-    while True:
-        try:
-            cho = int(input(prompt))
-            if 0 < cho <= 7:
-                break
-            else:
-                print("Choose one of the options from 1 to 7.")
+                print("Choose one of the following options please.")
         except ValueError:
             print("Numbers only please!")
     return cho
@@ -88,14 +74,16 @@ def time_formatted(t):
 
 
 def main():
-    choice_main = validation_for_menu(MAIN_MENU)
-    while True:
+    print(MAIN_MENU)
+    choice_main = validation_for_choice(0, 7, "==>")
+    while choice_main != 7:
         runner_name, runner_id = reading_runners()
         races = reading_races()
 
         if choice_main == 1:
             print("(1) Show the results for a race \n===============================")
-            choice1 = validation_for_choice(races, "Choice ==> ")
+            display(races)
+            choice1 = validation_for_choice(0, len(races), "Choice ==> ")
             c, t = race_details(races[choice1 - 1])
             print(f"Results for {races[choice1 - 1]}\n=======================")
             display_option1(c, t)
@@ -119,7 +107,7 @@ def main():
                                 print(f"{runner_id[i]},{time_from_race}", file=file_race)
                         break
                 else:
-                    print(f"data for {new_race} already exists, please enter a different name.")
+                    print(f"Data for {new_race} already exists, please enter a different name.")
                     new_race = input("Name of new race location ==> ").capitalize()
 
         elif choice_main == 3:
@@ -145,7 +133,8 @@ def main():
 
         elif choice_main == 5:
             print("(5) Show all the race times for one competitor \n===============================")
-            which_runner = validation_for_choice(runner_name, "Which runner ==> ")
+            display(runner_name)
+            which_runner = validation_for_choice(0, 5, "Which runner ==> ")
             runner_to_display = runner_id[which_runner - 1]
             print(f"{runner_name[which_runner - 1]:11}({runner_id[which_runner - 1]})")
             print("------------------------------")
@@ -171,11 +160,9 @@ def main():
                         winners_index = runner_id.index(c[index])
                         print(f"\t{runner_name[winners_index]} ({c[index]})")
                         winners_list.append(f"{c[index]}")
-
-        elif choice_main == 7:
-            print("Thank you, Goodbye.")
-            break
-        choice_main = validation_for_menu(MAIN_MENU)
+        print(MAIN_MENU)
+        choice_main = validation_for_choice(0, 7, "==>")
+    print("Thank you, Goodbye.")
 
 
 if __name__ == '__main__':
