@@ -100,26 +100,27 @@ def main():
                 if new_race not in races:
                     with open("Races.txt", "a") as file_option2:
                         print(new_race, file=file_option2)
+                        races.append(new_race)
+                    break
                 else:
-                    print(f"data for {new_race} already exists, please enter a different name.")
+                    print(f"Data for {new_race} already exists, please enter a different name.")
                     new_race = input("Name of new race location ==> ").capitalize()
-                with open(new_race.lower() + ".txt", "w") as file_race:
-                    for i in range(len(runner_id)):
-                        while True:
-                            try:
-                                time_from_race = int(input(f"What time {runner_id[i]} got in {new_race} race? ==>"))
-                                if time_from_race > 0:
-                                    print(f"{runner_id[i]},{time_from_race}", file=file_race)
-                                    break
-                                elif time_from_race == 0:
-                                    print(f"{runner_id[i]} did not participate or did not finish the {new_race} race.")
-                                    break
-                                else:
-                                    print("Positive numbers only, or number zero if the runner did not participate or"
-                                          + " did not finish the race.")
-                            except ValueError:
-                                print("Numbers only please!")
-                break
+            with open(new_race.lower() + ".txt", "w") as file_race:
+                for i in range(len(runner_id)):
+                    while True:
+                        try:
+                            time_from_race = int(input(f"What time {runner_id[i]} got in {new_race} race? ==>"))
+                            if time_from_race > 0:
+                                print(f"{runner_id[i]},{time_from_race}", file=file_race)
+                                break
+                            elif time_from_race == 0:
+                                print(f"{runner_id[i]} did not participate or did not finish the {new_race} race.")
+                                break
+                            else:
+                                print("Positive numbers only, or number zero if the runner did not participate or"
+                                      + " did not finish the race.")
+                        except ValueError:
+                            print("Numbers only please!")
 
         elif choice_main == 3:
             print("(3) Show all competitors by county \n===============================")
